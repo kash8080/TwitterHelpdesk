@@ -5,8 +5,8 @@ module.exports.getLive = function(user) {
     app_only_auth: false, //true only for application level context
     access_token: user.accesstoken, //for  user context
     access_token_secret: user.accesstokenSecret, //for  user context
-    timeout_ms: 60 * 1000 // optional HTTP request timeout to apply to all requests.
-    //strictSSL:            true,     // optional - requires SSL certificates to be valid.
+    timeout_ms: 60 * 1000 ,// optional HTTP request timeout to apply to all requests.
+    strictSSL:            true,     // optional - requires SSL certificates to be valid.
   };
 };
 
