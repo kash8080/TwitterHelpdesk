@@ -19,7 +19,7 @@ function onCreateTweetClicked(event) {
   loadingText.style.display = "inline-block";
   axios
     .post(
-      "http://localhost:3000/tweet",
+      "/tweet",
       {
         status: value,
         in_reply_to: lastTweetId
@@ -64,7 +64,7 @@ function onTweetClicked(el) {
   loadingText.style.display = "inline-block";
   axios
     .post(
-      "http://localhost:3000/thread",
+      "/thread",
       {
         id: el.id,
         username: selectedTweetUsername
