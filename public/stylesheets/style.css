@@ -104,6 +104,7 @@ nav {
   display: inline-block;
   margin-top: 15px;
   padding: 5px;
+  font-size: 16px;
 }
 #btn_create_tweet {
   padding: 10px 20px;

@@ -2,12 +2,11 @@ const router = require("express").Router();
 const Twit = require("twit");
 const ejs = require("ejs");
 const fs = require("fs");
+const TimestampUtil = require("../utils/TimestampUtil");
 
 router.post("/tweet", function(req, res, next) {
-  console.log("post tweet route");
 
   if (req.body && req.body.status && req.body.in_reply_to) {
-    console.log(req.body);
     var T = new Twit(require("../utils/TwitterConfig").getLive(req.user));
     T.post(
       "statuses/update",
@@ -17,7 +16,6 @@ router.post("/tweet", function(req, res, next) {
       },
       function(err, data, response) {
         if (err) {
-          console.log(err);
           return res.status(404).send();
         }
 
@@ -44,7 +42,6 @@ router.post("/thread", function(req, res, next) {
       data
     ) {
       if (err) {
-        console.log(err);
         return res.status(404).send();
       }
 
@@ -74,7 +71,6 @@ router.get("/", function(req, res, next) {
   var T = new Twit(require("../utils/TwitterConfig").getLive(req.user));
   getRootMentions(T, req.user.username, function(err, data) {
     if (err) {
-      console.log(err);
       return res.render("index", { title: "Home", tweets: [], err: err });
     }
     res.render("index", {
@@ -90,7 +86,6 @@ router.get("/", function(req, res, next) {
 router.get("/logout", function(req, res, next) {
   req.session.destroy(function(err) {
     if (err) {
-      console.log(err);
       return;
     }
     res.redirect("/auth/login");
@@ -136,7 +131,9 @@ function filterTweetsForThisThread(tweets,tweetId){
   var tweetsData = {};
   var firstReply;
   tweets.forEach(tweet => {
-    console.log(tweet.text);
+    
+    tweet.created_at_timestamp=TimestampUtil.convertToTimestampTwitter(tweet.created_at);
+    tweet.created_at_formatted=TimestampUtil.getDateAndTime(tweet.created_at_timestamp/1000);
 
     if (tweet.id_str === tweetId) {
       //TODO if the thread is big then first reply will not be available
@@ -162,7 +159,6 @@ function filterTweetsForThisThread(tweets,tweetId){
   });
   var finalRepliesList = [];
   if (firstReply) {
-    console.log("first reply = " + firstReply.data.id_str);
 
     finalRepliesList.push(firstReply.data);
     var nextTweetWrapper = firstReply.next;
@@ -199,6 +195,8 @@ const getRootMentions = (T, screen_name, callback) => {
       var tweetsData = [];
       data.statuses.forEach(tweet => {
         if (!tweet.in_reply_to_status_id_str) {
+          tweet.created_at_timestamp=TimestampUtil.convertToTimestampTwitter(tweet.created_at);
+          tweet.created_at_formatted=TimestampUtil.getDateAndTime(tweet.created_at_timestamp/1000);
           tweetsData.push(tweet);
         }
       });

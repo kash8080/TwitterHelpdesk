@@ -10,12 +10,13 @@ btn_create_tweet.addEventListener("click", onCreateTweetClicked);
 
 function onCreateTweetClicked(event) {
   if (!selectedTweetId) {
-    console.log("no tweet selected");
     window.alert("Select a thread to start conversation");
     return;
   }
+  if(!input_field.value){
+    return;
+  }
   var value ="@" + selectedTweetUsername + " "+ input_field.value;
-  console.log("sending request message=" + value);
   loadingText.style.display = "inline-block";
   axios
     .post(
@@ -33,10 +34,9 @@ function onCreateTweetClicked(event) {
     )
     .then(function(response) {
       // handle success
-      console.log(response);
       list_container_right.innerHTML += response.data.tweetHtml;
       list_container_right.scrollTop = list_container_right.scrollHeight;
-
+      input_field.value="";
       lastTweetId = response.data.tweet.id_str;
     })
     .catch(function(error) {
@@ -58,8 +58,6 @@ function onCreateTweetClicked(event) {
 function onTweetClicked(el) {
   console.log(el);
   selectedTweetUsername = el.attributes["data-username"].value;
-  console.log("tweet clicked id=" + el.id);
-  console.log("tweet clicked username=" + selectedTweetUsername);
 
   loadingText.style.display = "inline-block";
   axios
@@ -78,7 +76,6 @@ function onTweetClicked(el) {
     )
     .then(function(response) {
       // handle success
-      console.log(response);
       refreshTweetThread(el, response.data);
     })
     .catch(function(error) {
@@ -92,6 +89,7 @@ function onTweetClicked(el) {
 }
 
 function refreshTweetThread(el, responseData) {
+  input_field.value="";
   selectedTweetId = el.id;
   list_container_right.innerHTML = responseData.tweetHtml;
   lastTweetId = responseData.lastTweetId;
