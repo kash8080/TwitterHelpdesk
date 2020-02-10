@@ -1,0 +1,20 @@
+<% if (tweet.user.screen_name===my_screen_name) { %>
+  <div class="clearfix">
+    <div class="tweet_reply_mine shadow">
+      <p class="tweet_name"><%= tweet.user.name %> @<%= tweet.user.screen_name %></p>
+      <p class="tweet_content"><%= tweet.text %></p>
+      <p class="tweet_date"><%= tweet.created_at %></p>
+
+    </div>
+  </div>
+<% }else {%>
+  <div class="clearfix">
+    <div class="tweet_reply shadow">
+      <p class="tweet_name"><%= tweet.user.name %> @<%= tweet.user.screen_name %></p>
+      <p class="tweet_content"><%= tweet.text %></p>
+      <p class="tweet_date"><%= tweet.created_at %></p>
+    </div>
+    
+
+  </div>
+<% } %>

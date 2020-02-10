@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+
+  </head>
+  <body>
+    <nav>
+      <span class="v_center" id="logo">Twitter Helpdesk</span>
+      <a class="v_center" id="btn_logout" href="/logout">Logout</a>
+    </nav>
+    <% if (err) { %>
+    <h2><%= err %></h2>
+    <% } %>
+    <div class="container">
+      <div id="col_left">
+        <h2 class="tweet_heading">Recent Tweets</h2>
+        <% if (!tweets || tweets.length==0) { %>
+          <h3 class="tweet_heading">No Tweets found</h2>
+        <% } %>
+        <div class="list_container">
+          <% tweets.forEach(function(tweet){ %> 
+            <%- include('tweets/tweetRoot',{tweet: tweet,selectedId:selectedId}) %> 
+          <% }); %>
+        </div>
+ 
+       
+      </div>
+      <div id="col_right">
+        <h2 class="tweet_heading">Thread Details</h2>
+
+        <div id="list_container_right" >
+          
+        </div>
+        <div class="input_section">
+          <input id="input_tweet" type="text" placeholder="Enter tweet here">
+          <span id="btn_create_tweet">Tweet</span>
+          <span id="loading">Loading...</span>
+        </div>
+
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+    
+    
+    </body>
+</html>

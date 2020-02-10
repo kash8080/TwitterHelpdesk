@@ -1,0 +1,10 @@
+
+<% if (tweet.id_str==selectedId) { %>
+  <div class="tweet_root tweet_selected" id=<%= tweet.id_str %> data-username=<%= tweet.user.screen_name %> >
+<% }else{ %>
+  <div class="tweet_root" id=<%= tweet.id_str %> data-username=<%= tweet.user.screen_name %> >
+<% }%>
+  <p class="tweet_name"><%= tweet.user.name %> @<%= tweet.user.screen_name %></p>
+  <p class="tweet_content"><%= tweet.text %></p>
+  <p class="tweet_date"><%= tweet.created_at %></p>
+</div>
