@@ -14,11 +14,8 @@ module.exports = new TwitterStrategy(
       if (err) { return done(err); }
       done(null, user);
     });*/
-    console.log("twitter strategy");
     profile.accesstoken = token;
     profile.accesstokenSecret = tokenSecret;
-    console.log(token);
-    console.log(tokenSecret);
 
     done(null, profile);
   }

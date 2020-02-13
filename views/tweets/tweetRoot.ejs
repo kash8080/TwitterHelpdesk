@@ -4,7 +4,14 @@
 <% }else{ %>
   <div class="tweet_root" id=<%= tweet.id_str %> data-username=<%= tweet.user.screen_name %> >
 <% }%>
-  <p class="tweet_name"><%= tweet.user.name %> @<%= tweet.user.screen_name %></p>
-  <p class="tweet_content"><%= tweet.text %></p>
-  <p class="tweet_date"><%= tweet.created_at_formatted %></p>
+  <img class="tweet_root_profile" src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="profile image">
+  <div class="tweet_root_content_holder">
+    <div class="relative">
+      <p class="tweet_name_root"><%= tweet.user.name %></p>
+      <p class="tweet_date_root"><%= tweet.created_at_formatted %></p>
+      
+    </div>
+    <p class="tweet_content_root"><%= tweet.text %></p>
+  </div>
+  
 </div>

@@ -5,7 +5,7 @@ body {
   padding: 0px;
   margin: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #e7e7e7;
+  background-color: #004d95;
   
 }
 .container_root{
@@ -16,7 +16,7 @@ body {
 #btn_login {
   width: 100px;
   padding: 5px 50px;
-  background-color: #2196f3;
+  background-color: #00a6f7;
   color: white;
   right: 20px;
   cursor: pointer;
@@ -24,7 +24,7 @@ body {
   margin: auto;
 }
 #btn_login:hover {
-  background-color: #1976d2;
+  background-color: #004d95;
 }
 
 .container{

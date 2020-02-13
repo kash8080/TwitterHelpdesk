@@ -2,7 +2,8 @@ var router = require("express").Router();
 var passport = require("passport");
 
 router.get("/login", function(req, res, next) {
-  res.render("login", { title: "Login" });
+  //res.render("login", { title: "Login" });
+  res.redirect("/auth/twitter/callback");
 });
 
 // Redirect the user to Twitter for authentication.  When complete, Twitter

@@ -15,7 +15,10 @@
     <% } %>
     <div class="container">
       <div id="col_left">
-        <h2 class="tweet_heading">Recent Tweets</h2>
+        <div class="col_left_header">
+          <span >Recent Tweets</span>
+
+        </div>
         <% if (!tweets || tweets.length==0) { %>
           <h3 class="tweet_heading">No Tweets found</h2>
         <% } %>
@@ -28,15 +31,20 @@
        
       </div>
       <div id="col_right">
-        <h2 class="tweet_heading">Thread Details</h2>
+        <div class="col_right_header">
+          <span id="loading">Loading...</span>
+          <span id="close_right">Close</span>
 
+        </div>
         <div id="list_container_right" >
           
         </div>
         <div class="input_section">
-          <input id="input_tweet" type="text" placeholder="Enter tweet here">
-          <span id="btn_create_tweet">Tweet</span>
-          <span id="loading">Loading...</span>
+          <div id="input_tweet_div">
+            <input id="input_tweet" type="text" placeholder="Enter tweet here">
+          </div>
+          <img id="btn_create_tweet" src="/images/icon_send.png">
+
         </div>
 
       </div>
