@@ -2,9 +2,12 @@ const loadingText = document.getElementById("loading");
 const input_field = document.getElementById("input_tweet");
 const btn_create_tweet = document.getElementById("btn_create_tweet");
 const list_container_right = document.getElementById("list_container_right");
+const input_section = document.getElementById("input_section");
+
 var selectedTweetId, lastTweetId, selectedTweetUsername;
 
 loadingText.style.display = "none";
+input_section.style.display = "none";
 
 btn_create_tweet.addEventListener("click", onCreateTweetClicked);
 
@@ -34,10 +37,8 @@ function onCreateTweetClicked(event) {
     )
     .then(function(response) {
       // handle success
-      list_container_right.innerHTML += response.data.tweetHtml;
-      list_container_right.scrollTop = list_container_right.scrollHeight;
+      addTweetInChatList(response.data.tweetHtml,response.data.tweet);
       input_field.value="";
-      lastTweetId = response.data.tweet.id_str;
     })
     .catch(function(error) {
       // handle error
@@ -89,6 +90,8 @@ function onTweetClicked(el) {
 }
 
 function refreshTweetThread(el, responseData) {
+  input_section.style.display = "block";
+
   input_field.value="";
   selectedTweetId = el.id;
   list_container_right.innerHTML = responseData.tweetHtml;
@@ -100,4 +103,15 @@ function refreshTweetThread(el, responseData) {
     el.classList.remove("tweet_selected");
   });
   el.classList.add("tweet_selected");
+}
+
+var addTweetInChatList=function(html,tweet){
+  if(!selectedTweetId){
+    return;
+  }
+  
+  list_container_right.innerHTML += html;
+  list_container_right.scrollTop = list_container_right.scrollHeight;
+  lastTweetId = tweet.id_str;
+
 }

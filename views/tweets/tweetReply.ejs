@@ -2,7 +2,7 @@
   <div class="clearfix">
     <div class="tweet_reply_mine">
       <p class="tweet_name"><%= tweet.user.name %></p>
-      <p class="tweet_content"><%= tweet.text %></p>
+      <p class="tweet_content"><%= tweet.text_formatted %></p>
       <p class="tweet_date"><%= tweet.created_at_formatted %></p>
 
     </div>
@@ -11,7 +11,7 @@
   <div class="clearfix">
     <div class="tweet_reply">
       <p class="tweet_name"><%= tweet.user.name %></p>
-      <p class="tweet_content"><%= tweet.text %></p>
+      <p class="tweet_content"><%= tweet.text_formatted %></p>
       <p class="tweet_date"><%= tweet.created_at_formatted %></p>
     </div>
     

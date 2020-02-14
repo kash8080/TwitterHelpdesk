@@ -19,6 +19,8 @@ router.post("/tweet", function(req, res, next) {
           return res.status(404).send();
         }
 
+        data = require("../libs/ParseTweetText")(data,screen_name);
+
         var filename = __dirname + "/../views/tweets/tweetReply.ejs";
         var messageHtml = fs.readFileSync(filename, "utf8");
         var renderedHtml = ejs.render(messageHtml, {
@@ -113,7 +115,7 @@ const getRepliesOf = (
         return callback(err, data);
       }
 
-      return callback(null, filterTweetsForThisThread(data.statuses,tweetId));
+      return callback(null, filterTweetsForThisThread(data.statuses,tweetId,screen_name));
 
     }
   );
@@ -125,15 +127,14 @@ basically trying to make a linked list of thread to link all tweets in a row and
 If the thread is small and is recent then all the tweets for the thread will be available 
 but it can also be that this list is incomplete so we will just show all tweets from that user
 */
-function filterTweetsForThisThread(tweets,tweetId){
+function filterTweetsForThisThread(tweets,tweetId,screen_name){
 
   //we can also use a map here to speed things up.. 
   var tweetsData = {};
   var firstReply;
   tweets.forEach(tweet => {
     
-    tweet.created_at_timestamp=TimestampUtil.convertToTimestampTwitter(tweet.created_at);
-    tweet.created_at_formatted=TimestampUtil.getDateAndTime(tweet.created_at_timestamp/1000);
+    tweet = require("../libs/ParseTweetText")(tweet,screen_name);
 
     if (tweet.id_str === tweetId) {
       //TODO if the thread is big then first reply will not be available
@@ -164,6 +165,7 @@ function filterTweetsForThisThread(tweets,tweetId){
     var nextTweetWrapper = firstReply.next;
     while (nextTweetWrapper) {
       finalRepliesList.push(nextTweetWrapper.data);
+      
       nextTweetWrapper = nextTweetWrapper.next;
     }
     return finalRepliesList;
@@ -195,8 +197,9 @@ const getRootMentions = (T, screen_name, callback) => {
       var tweetsData = [];
       data.statuses.forEach(tweet => {
         if (!tweet.in_reply_to_status_id_str) {
-          tweet.created_at_timestamp=TimestampUtil.convertToTimestampTwitter(tweet.created_at);
-          tweet.created_at_formatted=TimestampUtil.getDateAndTime(tweet.created_at_timestamp/1000);
+          
+          tweet = require("../libs/ParseTweetText")(tweet,screen_name);
+
           tweetsData.push(tweet);
         }
       });

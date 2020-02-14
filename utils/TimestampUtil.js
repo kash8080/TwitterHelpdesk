@@ -10,6 +10,13 @@ function getDate(timestamp) {
   return moment.unix(timestamp).tz('Asia/Kolkata').format("DD/MM/YYYY");
 }
 
+module.exports.getTimeAndA =function(timestamp) {
+  return moment.unix(timestamp).tz('Asia/Kolkata').format("hh:mm A");
+}
+
+module.exports.getDateTimeFormat1=function(timestamp) {
+  return moment.unix(timestamp).tz('Asia/Kolkata').format("MMM D, YYYY [at] hh:mm A");
+}
 function getDateAndTime(timestamp) {
   return moment.unix(timestamp).tz('Asia/Kolkata').format("DD/MM/YY hh:mm");
 }

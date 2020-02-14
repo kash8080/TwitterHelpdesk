@@ -3,6 +3,7 @@
   <head>
     <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 
   </head>
   <body>
@@ -17,10 +18,9 @@
       <div id="col_left">
         <div class="col_left_header">
           <span >Recent Tweets</span>
-
         </div>
         <% if (!tweets || tweets.length==0) { %>
-          <h3 class="tweet_heading">No Tweets found</h2>
+          <h3 id="no_tweets">No Tweets found</h2>
         <% } %>
         <div class="list_container">
           <% tweets.forEach(function(tweet){ %> 
@@ -33,13 +33,16 @@
       <div id="col_right">
         <div class="col_right_header">
           <span id="loading">Loading...</span>
+          <!--
           <span id="close_right">Close</span>
+
+          -->
 
         </div>
         <div id="list_container_right" >
           
         </div>
-        <div class="input_section">
+        <div id="input_section">
           <div id="input_tweet_div">
             <input id="input_tweet" type="text" placeholder="Enter tweet here">
           </div>
@@ -52,6 +55,7 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/javascripts/main.js"></script>
+    <script src="/javascripts/sockets.js"></script>
     
     
     </body>
